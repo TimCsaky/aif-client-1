@@ -43,6 +43,13 @@ onMounted(() => {
       input.parentNode?.insertBefore(helpLink, input.nextSibling);
     });
   });
+
+
+
+  // hide chat ui iframe for this demo
+  // document.querySelectorAll('iframe').forEach((iframe) => {
+  //     (iframe as HTMLIFrameElement).style.display = 'none';
+  //   });
 });
 
 /**
@@ -73,7 +80,7 @@ const handleAssist = async (event: Event) => {
         }
         console.log(data);
         const res = await axios.post(
-            `http://localhost:3000/api/webform/${aiformId.value}/assist/${fieldId}`,
+            `http://localhost:3000/api/v1/${aiformId.value}/assist/${fieldId}`,
             data,
             { headers: { 'Content-Type': 'application/json' } }
           );

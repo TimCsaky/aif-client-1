@@ -5,8 +5,8 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <header>
     <nav>
-      <RouterLink to="/form/abc">Help Links</RouterLink>
-      <RouterLink to="/static-form">Context</RouterLink>
+      <RouterLink to="/form-v1">Form V1</RouterLink>
+      <RouterLink to="/" :key="$route.fullPath">Form V2</RouterLink>
     </nav>
   </header>
 

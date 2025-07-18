@@ -26,31 +26,20 @@ onBeforeMount(() => {
 <template>
   <main>
     <div class="instructions">
-      <p>This webpage represents the client's webform.
-        client links to our javascript:</p>
-      <pre>{{  `<script>
-      const formAssistClient = {
-          client: '79376007',
-          url: window.location.href
-      }
-      </script>
-      <script type="module" src="http://localhost:3000/script.js"></script>`
-        }}</pre>
-      <br />
+      <p>This example use the DOM to provide 'context' when calling our service.<br />
+        Client must add the following html to their webpage:</p><br />
+      <pre>{{`<script>
+const formAssistClient = { client: '79376007' }
+</script>
+<script type="module" src="http://localhost:3000/script.js"></script>`}}
+      </pre><br />
       <p>Our javascript does the following:</p>
       <ul>
-        <li>uses html DOM to:
-          <ul>
-            <li>create a JSON schema representing the form</li>
-            <li>create a JSON object representing the form values</li>
-          </ul>
-          Form must have an 'name' attribute and inputs must have 'name' attribute
-        </li>
+        <li>Creates JSON schemas representing the webform and input values</li>
         <li>Adds an iframe and sets up basic auth to our service</li>
-        <li>iframe makes calls to the 'field assist' endpoint of our AI Form service, passing the form schema, data and
-          current
-          field:<br />
-          GET {{ `http://form-service/api/v2/<formName>/assist<fieldName>` }}</li>
+        <li>iframe makes calls to the 'assist' endpoint of our AI Form service, passing the form data<br />
+          GET {{ `http://form-service/api/v2/assist` }}</li>
+          <li>See descriptions under each form field below for how the AI Form service assists.</li>
       </ul>
     </div>
     <div class="content">
@@ -61,7 +50,7 @@ onBeforeMount(() => {
             <tr>
               <td>
                 <span><label for="weather">What is typical weather for Victoria, BC?</label><br />
-                <small>AI Form service uses this label as a prompt for querying client's RAG</small></span>
+                <small>Uses the <strong>label</strong> as a prompt for querying client's RAG</small></span>
               </td>
               <td>
                 <input type="text" name="weather">
@@ -71,7 +60,7 @@ onBeforeMount(() => {
             <tr>
               <td>
                 <span>Will you walk to work?<br />
-                <small>AI Form service uses the input value as 'context' to reference when helping with other form fields.</small></span>
+                <small>References other input values as 'context' and conditional logic</small></span>
               </td>
               <td>
                 <input type="radio" value="Yes" name="walk">&nbsp;Yes&nbsp;&nbsp;
@@ -82,7 +71,7 @@ onBeforeMount(() => {
             <tr>
               <td>
                 <span>Will you bring a rain coat<br />
-                <small>AI Form service will suggest a value based on context </small></span>
+                <small>References other input values as 'context' and conditional logic</small></span>
               </td>
               <td>
                 <input type="radio" value="Yes" name="coat">&nbsp;Yes&nbsp;&nbsp;
@@ -122,6 +111,9 @@ tr > td:first-child {
   width: 20rem;
 }
 
+small {
+  color: teal;
+}
 .submit-btn {
   background-color: #7d98d4;
   color: white;
